@@ -7,5 +7,6 @@ namespace AElf.Contracts.HelloWorld
     {
         // A state that holds string value
         public StringState Message { get; set; }
+        public Int64State Count { get; set; }
     }
 }

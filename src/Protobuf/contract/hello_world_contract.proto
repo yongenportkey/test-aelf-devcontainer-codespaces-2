@@ -17,9 +17,16 @@ service HelloWorld {
   rpc Update (google.protobuf.StringValue) returns (google.protobuf.Empty) {
   }
 
+  rpc Initialize (google.protobuf.Empty) returns (google.protobuf.Empty) {
+  }
+
   // Views (methods that don't modify contract state)
   // Get the value stored from contract state
   rpc Read (google.protobuf.Empty) returns (google.protobuf.StringValue) {
+    option (aelf.is_view) = true;
+  }
+
+  rpc GetCount (google.protobuf.Empty) returns (google.protobuf.Int64Value) {
     option (aelf.is_view) = true;
   }
 }
