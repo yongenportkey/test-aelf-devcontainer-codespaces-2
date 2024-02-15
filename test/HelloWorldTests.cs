@@ -22,6 +22,23 @@ namespace AElf.Contracts.HelloWorld
             var updatedMessage = await HelloWorldStub.Read.CallAsync(new Empty());
             updatedMessage.Value.ShouldBe(inputValue);
         }
+        
+        [Fact]
+        public async Task Update_CountShouldBeAdded()
+        {
+            // Arrange
+            var inputValue = "Hello, World!";
+            var input = new StringValue { Value = inputValue };
+
+            // Act
+            await HelloWorldStub.Initialize.SendAsync(new Empty());
+            await HelloWorldStub.Update.SendAsync(input);
+            await HelloWorldStub.Read.CallAsync(new Empty());
+
+            // Assert
+            var count = await HelloWorldStub.GetCount.CallAsync(new Empty());
+            count.Value.ShouldBe(1);
+        }
     }
     
 }

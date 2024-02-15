@@ -7,10 +7,17 @@ namespace AElf.Contracts.HelloWorld
     public class HelloWorld : HelloWorldContainer.HelloWorldBase
     {
         // A method that modifies the contract state
+        public override Empty Initialize(Empty input)
+        {
+            State.Count.Value = 0;
+            return new Empty();
+        }
+
         public override Empty Update(StringValue input)
         {
             // Set the message value in the contract state
             State.Message.Value = input.Value;
+            State.Count.Value += 1;
             // Emit an event to notify listeners about something happened during the execution of this method
             Context.Fire(new UpdatedMessage
             {
@@ -28,6 +35,14 @@ namespace AElf.Contracts.HelloWorld
             return new StringValue
             {
                 Value = value
+            };
+        }
+
+        public override Int64Value GetCount(Empty input)
+        {
+            return new Int64Value
+            {
+                Value = State.Count.Value
             };
         }
     }
